@@ -1,0 +1,7 @@
+Förtydligande av tempobegrepp i planen
+Benämning	Tempo (min/km)	Beskrivning
+Easy	5:15 – 5:40	Lugn jogg, prattempo, återhämtning.
+Maratonfart (MP)	4:42 – 4:46	Din målfart för maraton, ca 3:20 totalt.
+Tempo	4:25 – 4:35	Lite snabbare än maratonfart, ungefär halvmaratonfart. Här tränar du uthållig snabbhet.
+Intervaller 400 m	3:50 – 4:00	Högre fart för korta intervaller, förbättrar snabbhet och syreupptagning.
+Intervaller 800 m och längre	Ca 4:00 – 4:15	Tempo mellan 5 km- och 10 km-fart, bygger tröskelstyrka och VO2max.
