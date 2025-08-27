@@ -32,7 +32,6 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
                 
                 // filter on "vecka" or "Vecka"
                 data = data.filter(row => Number(row.vecka) === currentWeek || Number(row.Vecka) === currentWeek);
-                
                 document.getElementById('output').innerText = JSON.stringify(data, null, 2);
             },
             error: function(error) {
@@ -42,8 +41,6 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
         });
     }
 });
-
-
 
 updateTime();
 setInterval(updateTime, 1000);
