@@ -4,6 +4,7 @@ function pad(value) {
 }
 
 let currentTime = ""; // full time
+let currentWeek = 1;
 
 function updateTime() {
     const now = new Date();
@@ -24,15 +25,25 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     if (file) {
         Papa.parse(file, {
             header: true,
+            dynamicTyping: true,
+            skipEmptyLines: true,
             complete: function(results) {
-                document.getElementById('output').innerText = JSON.stringify(results.data, null, 2);
+                let data = results.data;
+                
+                // filter on "vecka" or "Vecka"
+                data = data.filter(row => Number(row.vecka) === currentWeek || Number(row.Vecka) === currentWeek);
+                
+                document.getElementById('output').innerText = JSON.stringify(data, null, 2);
             },
             error: function(error) {
                 console.error('Error parsing CSV:', error);
+                document.getElementById('output').innerText = `Error parsing CSV: ${error}`;
             }
         });
     }
 });
+
+
 
 updateTime();
 setInterval(updateTime, 1000);
