@@ -5,7 +5,7 @@ function pad(value) {
 
 let currentTime = ""; // full time
 let currentWeek = 1;
-const CSV_STORAGE_KEY = 'csvData';
+const CSV_STORAGE_KEY = 'csvData'; // variable to store csv data as localStorage
 
 function updateTime() {
     const now = new Date();
