@@ -1,5 +1,5 @@
 
-// variabels
+// variables
 let currentTime = ""; // full time
 let showWeek = false; // if false show todays date
 const CSV_STORAGE_KEY = 'csvData';
