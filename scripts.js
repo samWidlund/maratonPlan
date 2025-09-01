@@ -3,9 +3,10 @@ function pad(value) {
     return String(value).padStart(2, '0');
 }
 
-let currentTime = ""; // full time
-let currentWeek = 1;
 const CSV_STORAGE_KEY = 'csvData'; // variable to store csv data as localStorage
+
+let currentTime = ""; // full time
+    let currentWeek = 1;
 
 function updateTime() {
     const now = new Date();
@@ -21,13 +22,22 @@ function updateTime() {
 }
 
 function renderCsvData(data) {
+    // Jämför mot dagens datum i format YYYY-MM-DD
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
-    // filter on week
     const filtered = Array.isArray(data)
-        ? data.filter(row => Number(row?.vecka) === currentWeek || Number(row?.Vecka) === currentWeek)
+        ? data.filter(row => {
+            const raw = row?.Datum ?? row?.datum ?? row?.Date ?? row?.date;
+            if (!raw) return false;
+            const s = String(raw).trim();
+            // Ta de första 10 tecknen (YYYY-MM-DD) och normalisera snedstreck
+            const key = s.slice(0, 10).replace(/\//g, '-');
+            return key === today;
+        })
         : [];
-    
-        const out = document.getElementById('output');
+
+    const out = document.getElementById('output');
     if (out) out.innerText = JSON.stringify(filtered, null, 2);
 }
 
