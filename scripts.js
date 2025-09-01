@@ -22,7 +22,7 @@ function updateTime() {
 }
 
 function renderCsvData(data) {
-    // Jämför mot dagens datum i format YYYY-MM-DD
+    // compare againt todays date
     const now = new Date();
     const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
@@ -31,7 +31,8 @@ function renderCsvData(data) {
             const raw = row?.Datum ?? row?.datum ?? row?.Date ?? row?.date;
             if (!raw) return false;
             const s = String(raw).trim();
-            // Ta de första 10 tecknen (YYYY-MM-DD) och normalisera snedstreck
+            
+            // take first 10 chars (YYYY-MM-DD) and normalize slashes
             const key = s.slice(0, 10).replace(/\//g, '-');
             return key === today;
         })
