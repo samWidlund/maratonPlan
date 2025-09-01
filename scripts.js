@@ -3,10 +3,7 @@ function pad(value) {
     return String(value).padStart(2, '0');
 }
 
-const CSV_STORAGE_KEY = 'csvData'; // variable to store csv data as localStorage
-
 let currentTime = ""; // full time
-    let currentWeek = 1;
 
 function updateTime() {
     const now = new Date();
@@ -21,20 +18,39 @@ function updateTime() {
     if (timeEl) timeEl.textContent = currentTime;
 }
 
+const CSV_STORAGE_KEY = 'csvData';
+let showWeek = false; // if false show todays date
+
 function renderCsvData(data) {
-    // compare againt todays date
     const now = new Date();
     const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    
+    // calc week start (monday)
+    const dayOfWeek = now.getDay(); // 0 = söndag, 1 = måndag
+    const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    const monday = new Date(now);
+    monday.setDate(now.getDate() + mondayOffset);
+    const weekStart = `${monday.getFullYear()}-${String(monday.getMonth() + 1).padStart(2, '0')}-${String(monday.getDate()).padStart(2, '0')}`;
+    
+    // calc week end (sunday)
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    const weekEnd = `${sunday.getFullYear()}-${String(sunday.getMonth() + 1).padStart(2, '0')}-${String(sunday.getDate()).padStart(2, '0')}`;
 
     const filtered = Array.isArray(data)
         ? data.filter(row => {
             const raw = row?.Datum ?? row?.datum ?? row?.Date ?? row?.date;
             if (!raw) return false;
             const s = String(raw).trim();
-            
-            // take first 10 chars (YYYY-MM-DD) and normalize slashes
             const key = s.slice(0, 10).replace(/\//g, '-');
-            return key === today;
+            
+            if (showWeek) {
+                // show week: date between monday and sunday
+                return key >= weekStart && key <= weekEnd;
+            } else {
+                // show only todays date
+                return key === today;
+            }
         })
         : [];
 
@@ -42,21 +58,41 @@ function renderCsvData(data) {
     if (out) out.innerText = JSON.stringify(filtered, null, 2);
 }
 
-// load saved csv file if it exists
-try {
-  const saved = localStorage.getItem(CSV_STORAGE_KEY);
-  if (saved) {
-    const parsed = JSON.parse(saved);
-    if (Array.isArray(parsed)) {
-      renderCsvData(parsed);
-    } else {
-      console.warn('csvData är inte en array, rensar.');
-      localStorage.removeItem(CSV_STORAGE_KEY);
+// toggle function to switch between day/week
+function toggleView() {
+    showWeek = !showWeek;
+    const saved = localStorage.getItem(CSV_STORAGE_KEY);
+    if (saved) {
+        try {
+            const parsed = JSON.parse(saved);
+            renderCsvData(parsed);
+        } catch (e) {
+            console.warn('Kunde inte läsa sparad CSV från localStorage', e);
+        }
     }
-  }
+    
+    // update button text
+    const toggleBtn = document.getElementById('toggleView');
+    if (toggleBtn) {
+        toggleBtn.textContent = showWeek ? 'Visa dagens datum' : 'Visa hela veckan';
+    }
+}
+
+// load saved csv on page load
+try {
+    const saved = localStorage.getItem(CSV_STORAGE_KEY);
+    if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+            renderCsvData(parsed);
+        } else {
+            console.warn('csvData är inte en array, rensar.');
+            localStorage.removeItem(CSV_STORAGE_KEY);
+        }
+    }
 } catch (e) {
-  console.warn('Ogiltig JSON i csvData, rensar.', e);
-  localStorage.removeItem(CSV_STORAGE_KEY);
+    console.warn('Ogiltig JSON i csvData, rensar.', e);
+    localStorage.removeItem(CSV_STORAGE_KEY);
 }
 
 // user upload csv file
@@ -82,7 +118,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
                     console.warn('Kunde inte spara CSV i localStorage (för stor data?)', e);
                 }
 
-                // render
+                // render csv data
                 renderCsvData(allRows);
             },
             error: function(error) {
