@@ -1,9 +1,13 @@
+
+// variabels
+let currentTime = ""; // full time
+let showWeek = false; // if false show todays date
+const CSV_STORAGE_KEY = 'csvData';
+
 // date and time
 function pad(value) {
     return String(value).padStart(2, '0');
 }
-
-let currentTime = ""; // full time
 
 function updateTime() {
     const now = new Date();
@@ -17,9 +21,6 @@ function updateTime() {
     if (dateEl) dateEl.textContent = dateString;
     if (timeEl) timeEl.textContent = currentTime;
 }
-
-const CSV_STORAGE_KEY = 'csvData';
-let showWeek = false; // if false show todays date
 
 function renderCsvData(data) {
     const now = new Date();
