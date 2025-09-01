@@ -60,6 +60,12 @@ function renderCsvData(data) {
 
     // console log filtered data
     console.log('Visad data:', filtered);
+    const todaysTraining = data.find(row => row.Datum === today);
+    const todayElement = document.getElementById('trainingToday');
+    if (todaysTraining) {
+        console.log('Dagens träning:', todaysTraining.Pass); // todaysTraining.Pass visar dagens träning, använd för att visa dagens pass
+        if (todayElement) todayElement.innerText = todaysTraining.Pass;
+    }
 }
 
 // toggle function to switch between day/week
