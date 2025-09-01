@@ -57,6 +57,9 @@ function renderCsvData(data) {
 
     const out = document.getElementById('output');
     if (out) out.innerText = JSON.stringify(filtered, null, 2);
+
+    // console log filtered data
+    console.log('Visad data:', filtered);
 }
 
 // toggle function to switch between day/week
