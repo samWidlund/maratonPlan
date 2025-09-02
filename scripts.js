@@ -1,11 +1,13 @@
+
+// variables
+let currentTime = ""; // full time
+let showWeek = false; // if false show todays date
+const CSV_STORAGE_KEY = 'csvData';
+
 // date and time
 function pad(value) {
     return String(value).padStart(2, '0');
 }
-
-let currentTime = ""; // full time
-let currentWeek = 1;
-const CSV_STORAGE_KEY = 'csvData'; // variable to store csv data as localStorage
 
 function updateTime() {
     const now = new Date();
@@ -21,31 +23,92 @@ function updateTime() {
 }
 
 function renderCsvData(data) {
-
-    // filter on week
-    const filtered = Array.isArray(data)
-        ? data.filter(row => Number(row?.vecka) === currentWeek || Number(row?.Vecka) === currentWeek)
-        : [];
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     
-        const out = document.getElementById('output');
+    // calc week start (monday)
+    const dayOfWeek = now.getDay(); // 0 = söndag, 1 = måndag
+    const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    const monday = new Date(now);
+    monday.setDate(now.getDate() + mondayOffset);
+    const weekStart = `${monday.getFullYear()}-${String(monday.getMonth() + 1).padStart(2, '0')}-${String(monday.getDate()).padStart(2, '0')}`;
+    
+    // calc week end (sunday)
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    const weekEnd = `${sunday.getFullYear()}-${String(sunday.getMonth() + 1).padStart(2, '0')}-${String(sunday.getDate()).padStart(2, '0')}`;
+
+    const filtered = Array.isArray(data)
+        ? data.filter(row => {
+            const raw = row?.Datum ?? row?.datum ?? row?.Date ?? row?.date;
+            if (!raw) return false;
+            const s = String(raw).trim();
+            const key = s.slice(0, 10).replace(/\//g, '-');
+            
+            if (showWeek) {
+                // show week: date between monday and sunday
+                return key >= weekStart && key <= weekEnd;
+            } else {
+                // show only todays date
+                return key === today;
+            }
+        })
+        : [];
+
+    const out = document.getElementById('output');
     if (out) out.innerText = JSON.stringify(filtered, null, 2);
+
+    // console log filtered data
+    console.log('Visad data:', filtered);
+    const todaysTraining = data.find(row => row.Datum === today);
+
+    // use this to display the current training and info
+    const todayElement = document.getElementById('trainingToday');
+    const dayElement = document.getElementById('dayToday')
+    if (todaysTraining) {
+        console.log('Dagens träning:', todaysTraining.Pass);
+        if (todayElement) {
+            todayElement.innerText = todaysTraining.Pass;
+            dayElement.innerText = todaysTraining.Veckodag;
+        } 
+    }
 }
 
-// load saved csv file if it exists
-try {
-  const saved = localStorage.getItem(CSV_STORAGE_KEY);
-  if (saved) {
-    const parsed = JSON.parse(saved);
-    if (Array.isArray(parsed)) {
-      renderCsvData(parsed);
-    } else {
-      console.warn('csvData är inte en array, rensar.');
-      localStorage.removeItem(CSV_STORAGE_KEY);
+// toggle function to switch between day/week
+function toggleView() {
+    showWeek = !showWeek;
+    const saved = localStorage.getItem(CSV_STORAGE_KEY);
+    if (saved) {
+        try {
+            const parsed = JSON.parse(saved);
+            renderCsvData(parsed);
+        } catch (e) {
+            console.warn('Kunde inte läsa sparad CSV från localStorage', e);
+        }
     }
-  }
+    
+    // update button text
+    const toggleBtn = document.getElementById('toggleView');
+    if (toggleBtn) {
+        toggleBtn.textContent = showWeek ? 'Visa dagens datum' : 'Visa hela veckan';
+    }
+}
+
+// load saved csv on page load
+try {
+    const saved = localStorage.getItem(CSV_STORAGE_KEY);
+    if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+            renderCsvData(parsed);
+        } else {
+            console.warn('csvData är inte en array, rensar.');
+            localStorage.removeItem(CSV_STORAGE_KEY);
+        }
+    }
 } catch (e) {
-  console.warn('Ogiltig JSON i csvData, rensar.', e);
-  localStorage.removeItem(CSV_STORAGE_KEY);
+    console.warn('Ogiltig JSON i csvData, rensar.', e);
+    localStorage.removeItem(CSV_STORAGE_KEY);
 }
 
 // user upload csv file
@@ -71,7 +134,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
                     console.warn('Kunde inte spara CSV i localStorage (för stor data?)', e);
                 }
 
-                // render
+                // render csv data
                 renderCsvData(allRows);
             },
             error: function(error) {
