@@ -1,3 +1,9 @@
+:root {
+    --bg: #000000;
+    --fg: #00FF00; /* terminal green */
+    --fg-soft: #33FF33;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,8 +13,8 @@
 body {
     width: 100vw;
     height: 100vh;
-    background-color: black;
-    color:#00FF00;
+    background-color: var(--bg);
+    color: var(--fg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,5 +24,57 @@ body {
     width: auto;
     height: auto;
     padding: 1%;
-    border: 1px solid #00FF00;
+    border: 1px solid var(--fg);
+}
+
+/* unified button styles */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--fg);
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background: rgba(0, 255, 0, 0.12);
+    border-color: var(--fg-soft);
+}
+
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+/* input button */
+input[type="file"] {
+    color: var(--fg);
+}
+
+input[type="file"]::file-selector-button {
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--fg);
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: rgba(0, 255, 0, 0.12);
+    border-color: var(--fg-soft);
+}
+
+input[type="file"]::file-selector-button:active {
+    background: rgba(0, 255, 0, 0.2);
 }
