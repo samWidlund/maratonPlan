@@ -61,10 +61,16 @@ function renderCsvData(data) {
     // console log filtered data
     console.log('Visad data:', filtered);
     const todaysTraining = data.find(row => row.Datum === today);
+
+    // use this to display the current training and info
     const todayElement = document.getElementById('trainingToday');
+    const dayElement = document.getElementById('dayToday')
     if (todaysTraining) {
-        console.log('Dagens träning:', todaysTraining.Pass); // todaysTraining.Pass visar dagens träning, använd för att visa dagens pass
-        if (todayElement) todayElement.innerText = todaysTraining.Pass;
+        console.log('Dagens träning:', todaysTraining.Pass);
+        if (todayElement) {
+            todayElement.innerText = todaysTraining.Pass;
+            dayElement.innerText = todaysTraining.Veckodag;
+        } 
     }
 }
 
