@@ -14,7 +14,9 @@ body {
     align-items: center;
 }
 
-
 #center {
-
+    width: auto;
+    height: auto;
+    padding: 1%;
+    border: 1px solid #00FF00;
 }
