@@ -78,3 +78,11 @@ input[type="file"]::file-selector-button:hover {
 input[type="file"]::file-selector-button:active {
     background: rgba(0, 255, 0, 0.2);
 }
+
+/* terminal container */
+
+#terminalContainer {
+    background-color:red;
+    height: 10vh;
+    width: 100%;
+}
