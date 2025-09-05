@@ -1,7 +1,14 @@
 :root {
-    --bg: #000000;
-    --fg: #00FF00; /* terminal green */
-    --fg-soft: #33FF33;
+    --bg: #300A24;
+    --fg: #EEEEEC;
+    --fg-soft: #D3D7CF;
+    --accent: #4E9A06;
+    --accent-soft: #73C21D;
+    --topbar-bg: #3D3846;
+    --topbar-fg: #EEEEEC;
+    --dot-close: #E95420;
+    --dot-min: #F5C211;
+    --dot-max: #38B44A;
 }
 
 * {
@@ -13,7 +20,7 @@
 body {
     width: 100vw;
     height: 100vh;
-    background-color: var(--bg);
+    background-image: url("img/ubuntuWallpaper.jpg");
     color: var(--fg);
     display: flex;
     justify-content: center;
@@ -21,10 +28,8 @@ body {
 }
 
 #center {
-    width: auto;
-    height: auto;
-    padding: 1%;
-    border: 1px solid var(--fg);
+    width: 50vw;
+    height: 50vh;
 }
 
 /* unified button styles */
@@ -44,15 +49,15 @@ button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover {
-    background: rgba(0, 255, 0, 0.12);
-    border-color: var(--fg-soft);
+    background: rgba(78, 154, 6, 0.12);
+    border-color: var(--accent);
 }
 
 button:active,
 input[type="button"]:active,
 input[type="submit"]:active,
 input[type="reset"]:active {
-    background: rgba(0, 255, 0, 0.2);
+    background: rgba(78, 154, 6, 0.2);
 }
 
 /* input button */
@@ -71,8 +76,8 @@ input[type="file"]::file-selector-button {
 }
 
 input[type="file"]::file-selector-button:hover {
-    background: rgba(0, 255, 0, 0.12);
-    border-color: var(--fg-soft);
+    background: rgba(78, 154, 6, 0.12);
+    border-color: var(--accent);
 }
 
 input[type="file"]::file-selector-button:active {
@@ -80,9 +85,67 @@ input[type="file"]::file-selector-button:active {
 }
 
 /* terminal container */
-
 #terminalContainer {
-    background-color:red;
-    height: 10vh;
+    height: 100%;
     width: 100%;
+    background-color:var(--bg);
+    color: var(--fg-soft);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+}
+
+#topBar {
+    width: 100%;
+    height: 10%;
+    background-color: var(--topbar-bg);
+    border-radius:8px 8px 0px 0px;
+    color: var(--topbar-fg);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    justify-content: space-between;
+}
+
+#plan {
+    padding: 1%;
+}
+
+.prompt-user {
+    color: var(--accent);
+}
+
+/* ubuntu like controls */
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.window-controls .btn {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--topbar-fg);
+    border: 1px solid rgba(238, 238, 236, 0.25);
+    background: transparent;
+    opacity: 0.8;
+}
+
+.window-controls .btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    opacity: 1;
+}
+
+.window-controls .btn span {
+    font-size: 12px;
+    line-height: 1;
+}
+
+/* Title */
+.title {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
 }
