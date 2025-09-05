@@ -9,6 +9,7 @@
     --dot-close: #E95420;
     --dot-min: #F5C211;
     --dot-max: #38B44A;
+    --path: #3465A4;
 }
 
 * {
@@ -25,6 +26,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "Ubuntu Mono", "DejaVu Sans Mono", Consolas, Monaco, monospace;
+    font-weight: bold;
 }
 
 #center {
@@ -103,7 +106,23 @@ input[type="file"]::file-selector-button:active {
     display: flex;
     align-items: center;
     padding: 0 8px;
-    justify-content: space-between;
+    justify-content:space-between;
+}
+
+/* terminal inline input */
+#inputTerminal {
+    background-color: var(--bg);
+    color: var(--fg);
+    border-radius: 4px;
+    border: 0px;
+}
+
+#inputTerminal::placeholder {
+    opacity: 0.8;
+}
+
+#inputTerminal:focus {
+    outline: none;
 }
 
 #plan {
@@ -112,6 +131,10 @@ input[type="file"]::file-selector-button:active {
 
 .prompt-user {
     color: var(--accent);
+}
+
+.prompt-path {
+    color: var(--path);
 }
 
 /* ubuntu like controls */
@@ -143,7 +166,6 @@ input[type="file"]::file-selector-button:active {
     line-height: 1;
 }
 
-/* Title */
 .title {
     font-size: 14px;
     font-weight: 600;

@@ -8,6 +8,7 @@
         <title>training-plan display</title>
         <link rel="stylesheet" href="style.css">
         <link rel="icon" href="img/favicon.png">
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
 
@@ -15,24 +16,25 @@
             <div id="terminalContainer">
                 <div id="topBar">
                     <span class="title">terminal</span>
+                    <div id="date"></div>
                     <div class="window-controls">
-                        <button class="btn" title="Minimize"><span>–</span></button>
+                        <button class="btn" title="Minimize"><span>-</span></button>
                         <button class="btn" title="Maximize"><span>▢</span></button>
-                        <button class="btn" title="Close"><span>×</span></button>
+                        <button class="btn" title="Close"><span>x</span></button>
                     </div>
                 </div>
-                
+
                 <div id="plan">
-                    <span class="prompt-user">ubuntu@trainingplan</span>:~$
-                    <p id="date"></p>
-                    <p id="time"></p>    
+                    <p>to list your training plan, open it as a csv file</p>
+                    <br>
+                    <span class="prompt-user">ubuntu@trainingplan</span>:<span class="prompt-path">~</span>$ <input type="text" id="inputTerminal">   
 
                     <!-- choose n fetch csv file -->
                     <input type="file" id="fileInput" accept=".csv" />
                     <pre id="output"></pre>
-        
+<!--         
                     <p id="trainingToday"></p>
-                    <p id="dayToday"></p>
+                    <p id="dayToday"></p> -->
                 <button id="toggleView" onclick="toggleView()">Visa hela veckan</button> 
                 </div>   
             </div>
