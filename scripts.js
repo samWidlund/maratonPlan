@@ -146,5 +146,29 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     }
 });
 
+const inputTerminal = document.getElementById('inputTerminal');
+const outputTerminal = document.getElementById('outputTerminal');
+const outputContainer = document.getElementById('outputContainer');
+
+inputTerminal.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+
+    const inputEl = e.currentTarget;
+    const cmd = inputEl.value.trim();
+
+    switch (cmd) {
+        case 'help':
+            outputTerminal.textContent = 'clear - clears terminal from output';
+            break;
+        case 'clear':
+            outputTerminal.textContent = '';
+            break;
+    }
+
+    inputEl.value = '';
+});
+
+
+
 updateTime();
 setInterval(updateTime, 1000);

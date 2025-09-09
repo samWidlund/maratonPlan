@@ -15,7 +15,7 @@
         <div id="center">
             <div id="terminalContainer">
                 <div id="topBar">
-                    <span class="title">terminal</span>
+                    <span class="title">Terminal</span>
                     <div id="date"></div>
                     <div class="window-controls">
                         <button class="btn" title="Minimize"><span>-</span></button>
@@ -25,21 +25,25 @@
                 </div>
 
                 <div id="plan">
-                    <p>open your training plan as csv file, use "cat &lt;filename&gt;".</p>
-                    <p>see "man list_commands" for details</p>
+                    <p>Open your training plan as csv file, use "help" for details.</p>
                     <br>
-                    <span class="prompt-user">ubuntu@trainingplan</span>:<span class="prompt-path">~</span>$ <input type="text" id="inputTerminal" autofocus>   
-
-                    <!-- choose n fetch csv file -->
-                    <input type="file" id="fileInput" accept=".csv" />
-                    <pre id="output"></pre>
                     
-                    <!-- use to display only the value 
-                    <p id="trainingToday"></p>
-                    <p id="dayToday"></p> 
-                    -->
-                <button id="toggleView" onclick="toggleView()">Visa hela veckan</button> 
-                </div>   
+                    <div class="prompt-line"><span class="prompt-user">ubuntu@trainingplan</span>:<span class="prompt-path">~</span>$<input type="text" id="inputTerminal" autofocus></div>
+                    <p id="outputTerminal"></p>
+                    
+                    <div id="outputContainer">
+                        <!-- choose n fetch csv file -->
+                        <input type="file" id="fileInput" accept=".csv" />
+                        <pre id="output"></pre>
+
+                        <!-- use to display only the value 
+                        <p id="trainingToday"></p>
+                        <p id="dayToday"></p> 
+                        -->
+
+                        <button id="toggleView" onclick="toggleView()">Visa hela veckan</button> 
+                    </div>
+                    </div>   
             </div>
         </div>
 
