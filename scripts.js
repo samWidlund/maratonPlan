@@ -165,7 +165,7 @@ inputTerminal.addEventListener('keydown', (e) => {
             }
             break
         case 'help':
-            outputTerminal.textContent = 'INFO\n\tPlease input plan separated by following columns:\n\t<Vecka,Datum,Veckodag,Pass>\n\nCOMMANDS\n\tbrowse - chooses an input file\n\tclear  - clears the output\n\texit   - exit training plan\n\thelp   - lists available commands';            
+            outputTerminal.textContent = 'INFO\n\tInclude following columns:\n\t<Vecka,Datum,Veckodag,Pass>\n\nCOMMANDS\n\tbrowse - chooses an input file\n\tclear  - clears the output\n\texit   - exit training plan\n\thelp   - lists available commands';            
             break;
         case 'exit':
             outputContainer.style.display = 'none';
