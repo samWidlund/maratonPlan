@@ -129,6 +129,11 @@ input[type="file"]::file-selector-button:active {
     padding: 6px 8px;
     flex: 1 1 auto;
     min-width: 0;
+    /* adjust for safari */
+    -webkit-appearance: none;
+    appearance: none;
+    vertical-align: baseline;
+    box-sizing: border-box;
 }
 
 #inputTerminal::placeholder {
