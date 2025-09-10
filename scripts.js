@@ -90,7 +90,7 @@ function toggleView() {
     // update button text
     const toggleBtn = document.getElementById('toggleView');
     if (toggleBtn) {
-        toggleBtn.textContent = showWeek ? 'Visa dagens datum' : 'Visa hela veckan';
+        toggleBtn.textContent = showWeek ? 'Show today' : 'Show week';
     }
 }
 
@@ -154,14 +154,27 @@ inputTerminal.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter') return;
 
     const inputEl = e.currentTarget;
-    const cmd = inputEl.value.trim();
+    const terminal = inputEl.value.trim().toLowerCase();
 
-    switch (cmd) {
+    switch (terminal) {
+        case 'browse':
+            outputContainer.style.display = 'inherit';
+            const fileInputEl = document.getElementById('fileInput');
+            if (fileInputEl) {
+                fileInputEl.click();
+            }
+            break
         case 'help':
-            outputTerminal.textContent = 'clear - clears terminal from output';
+            outputTerminal.textContent = 'INFO\n\tPlease input plan separated by following columns:\n\t<Vecka,Datum,Veckodag,Pass>\n\nCOMMANDS\n\tbrowse - chooses an input file\n\tclear  - clears the output\n\texit   - exit training plan\n\thelp   - lists available commands';            
+            break;
+        case 'exit':
+            outputContainer.style.display = 'none';
             break;
         case 'clear':
             outputTerminal.textContent = '';
+            break;
+        default:
+            outputTerminal.textContent = `unknown command: ${terminal}`;
             break;
     }
 

@@ -69,7 +69,7 @@ input[type="reset"]:active {
 input[type="file"] {
     color: var(--fg);
     display: inline-block;
-    margin: 8px 0;
+    margin: 0;
 }
 
 input[type="file"]::file-selector-button {
@@ -198,7 +198,7 @@ input[type="file"]::file-selector-button:active {
 }
 
 #output {
-    margin-top: 8px;
+    margin: 8px 0 8px 0;
     padding: 8px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -211,6 +211,10 @@ input[type="file"]::file-selector-button:active {
 
 #outputContainer {
     display: none;
+}
+
+#outputTerminal {
+    white-space: pre;
 }
 
 @media (max-width: 900px) {
