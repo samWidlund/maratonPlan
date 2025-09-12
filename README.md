@@ -1,7 +1,7 @@
 # maratonPlan
 
 ## Overview
-A minimal terminal-like viewer for training plans stored in CSV files. It is intended for my personal (Swedish) use and only accepts Swedish column headers.
+A minimal ubuntu-inspired terminal-like viewer for training plans stored in CSV files. It is intended for my personal (Swedish) use and only accepts Swedish column headers.
 
 ## CSV format
 Your CSV must include these headers:
@@ -32,7 +32,7 @@ exit    - hide the file picker/output
 ```
 
 ### Examples
-```console
+```bash
 ubuntu@trainingplan:~$ help
 ubuntu@trainingplan:~$ browse
 ```
