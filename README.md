@@ -63,6 +63,7 @@ Cache busting tip: browsers may cache `scripts.js`/`style.css`. If needed, appen
 
 ## Backlog
 - fix padding bug on iOS Safari input
+- fix example of csv, wrong format with Vecka
 
 ## Icons
 <a target="_blank" href="https://icons8.com/icon/9769/exercise">Exercise</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
