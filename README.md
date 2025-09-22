@@ -14,8 +14,8 @@ Your CSV must include these headers:
 
 Example CSV:
 ```csv
-Datum,Veckodag,Pass,Vecka
-2025-09-12,Fre,Löpning distans 8 km,37
+Vecka,Datum,Veckodag,Pass
+2,2025-08-17,Sön,"24 km långpass, sista 6 km MP"
 ```
 
 ## Usage
